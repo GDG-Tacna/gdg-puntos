@@ -3,7 +3,6 @@ import { useSeasonPoints } from '../hooks/useSeasonPoints'
 import { useData } from '../context/DataContext'
 import SeasonSelector from '../components/shared/SeasonSelector'
 import LeaderboardCard from '../components/ranking/LeaderboardCard'
-import ShareButton from '../components/ranking/ShareButton'
 
 export default function DashboardPage() {
   const { activeSeason, loading } = useData()
@@ -26,10 +25,7 @@ export default function DashboardPage() {
           <Trophy size={24} className="text-primary" />
           <h1 className="font-heading font-bold text-xl">Ranking</h1>
         </div>
-        <div className="flex items-center gap-3">
-          <ShareButton leaderboard={leaderboard} seasonName={activeSeason?.nombre ?? ''} />
-          <SeasonSelector />
-        </div>
+        <SeasonSelector />
       </div>
 
       {!activeSeason ? (
