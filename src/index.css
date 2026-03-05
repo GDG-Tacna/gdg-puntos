@@ -1,0 +1,230 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 17px;
+  }
+
+  html, body {
+    @apply bg-bg-base text-text-primary font-body;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-heading;
+  }
+
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border-bright rounded-full;
+    transition: background 0.2s;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-text-muted;
+  }
+
+  ::selection {
+    background: rgba(66, 133, 244, 0.3);
+    color: #4285F4;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-bg-card border border-border rounded-xl shadow-card;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .card-interactive {
+    @apply card;
+  }
+
+  .card-interactive:hover {
+    @apply shadow-card-hover border-border-bright;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white font-heading font-semibold px-5 py-2.5 rounded-xl
+           hover:bg-primary-dim transition-all duration-200 text-sm
+           shadow-primary-glow hover:shadow-none active:scale-[0.97];
+  }
+
+  .btn-ghost {
+    @apply text-text-secondary hover:text-text-primary hover:bg-bg-hover
+           px-3 py-2 rounded-xl transition-all duration-200 text-sm font-body;
+  }
+
+  .btn-danger {
+    @apply text-danger hover:bg-danger/10 px-3 py-2 rounded-xl
+           transition-all duration-200 text-sm font-body border border-danger/30
+           hover:border-danger/60;
+  }
+
+  .input-field {
+    @apply w-full bg-bg-base border border-border rounded-xl px-4 py-2.5
+           text-text-primary placeholder-text-muted text-sm
+           focus:outline-none focus:border-primary/50 focus:shadow-input-focus
+           transition-all duration-200;
+  }
+
+  .label {
+    @apply block text-xs font-body font-medium text-text-secondary mb-1.5 uppercase tracking-wide;
+  }
+
+  .modal-backdrop {
+    @apply fixed inset-0 z-50 flex items-center justify-center p-4;
+    background: rgba(5, 8, 16, 0.88);
+    backdrop-filter: blur(8px);
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .modal-panel {
+    @apply card w-full max-w-xl overflow-y-auto shadow-modal
+           rounded-2xl border-t border-t-white/[0.04];
+    max-height: min(90dvh, 90vh);
+    animation: slideUp 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  @media (max-width: 767px) {
+    .modal-panel {
+      max-height: min(92dvh, 92vh);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+  }
+
+  .nav-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-body font-medium
+           transition-all duration-200 cursor-pointer select-none;
+  }
+
+  .nav-item-inactive {
+    @apply text-text-secondary hover:text-text-primary hover:bg-bg-hover;
+  }
+
+  .nav-item-active {
+    @apply text-primary bg-primary-glow font-semibold;
+    box-shadow: inset 3px 0 0 #4285F4;
+  }
+
+  .checkbox-custom {
+    @apply appearance-none w-[18px] h-[18px] rounded-md border-2 border-border-bright
+           bg-bg-base cursor-pointer transition-all duration-200 relative;
+  }
+
+  .checkbox-custom:checked {
+    @apply bg-success border-success;
+    animation: checkPop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  .checkbox-custom:checked::after {
+    content: '';
+    position: absolute;
+    left: 4.5px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+
+  .checkbox-custom:hover:not(:checked) {
+    @apply border-primary/50 bg-primary-soft;
+  }
+
+  .checkbox-custom:focus-visible {
+    @apply outline-none ring-2 ring-primary/30;
+  }
+
+  .avatar {
+    @apply w-9 h-9 rounded-xl flex items-center justify-center shrink-0 text-xs font-heading font-bold uppercase;
+    background: linear-gradient(135deg, rgba(66,133,244,0.2), rgba(66,133,244,0.05));
+    color: #4285F4;
+    border: 1px solid rgba(66,133,244,0.2);
+  }
+
+  .avatar-lg {
+    @apply w-14 h-14 rounded-2xl text-base;
+    background: linear-gradient(135deg, rgba(66,133,244,0.25), rgba(66,133,244,0.08));
+    border: 1px solid rgba(66,133,244,0.25);
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-1 rounded-lg bg-primary-glow border border-primary/20 text-primary text-xs font-medium;
+  }
+
+  .skeleton {
+    @apply rounded-xl;
+    background: linear-gradient(90deg, #13161F 0%, #1C2030 40%, #13161F 80%);
+    background-size: 200% 100%;
+    animation: shimmer 2s ease-in-out infinite;
+  }
+
+  .ambient-glow {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .ambient-glow::before {
+    content: '';
+    position: absolute;
+    top: -10%;
+    right: -5%;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(66,133,244,0.04) 0%, transparent 70%);
+  }
+
+  .ambient-glow::after {
+    content: '';
+    position: absolute;
+    bottom: 10%;
+    left: -10%;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(52,168,83,0.02) 0%, transparent 60%);
+  }
+
+  .section-header {
+    @apply flex items-center gap-3 mb-4;
+  }
+
+  .section-header::after {
+    content: '';
+    @apply flex-1 h-px bg-border;
+  }
+
+  .progress-bar {
+    @apply h-1.5 rounded-full bg-border overflow-hidden;
+  }
+
+  .progress-bar-fill {
+    @apply h-full rounded-full transition-all duration-700 ease-out;
+  }
+
+  .table-header {
+    @apply px-5 py-4 text-left text-[11px] font-heading font-semibold text-text-muted uppercase tracking-[0.08em];
+  }
+}
